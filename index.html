@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recruitment Funnel Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1f2937;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Container */
+    .container {
+      padding: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #6b7280;
+    }
+
+    .card p {
+      font-size: 24px;
+      margin: 10px 0 0;
+      font-weight: bold;
+    }
+
+    .charts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    canvas {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .charts {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div><strong>HR Analytics</strong></div>
+    <div class="nav-links">
+      <a href="#">Dashboard</a>
+      <a href="#">Candidates</a>
+      <a href="#">Reports</a>
+      <a href="#">Settings</a>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <h1>Recruitment Funnel Overview</h1>
+    <p>Some random descriptive text about recruitment performance and hiring efficiency.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Total Candidates</h3>
+        <p>120</p>
+      </div>
+      <div class="card">
+        <h3>Interviews</h3>
+        <p>35</p>
+      </div>
+      <div class="card">
+        <h3>Offers</h3>
+        <p>10</p>
+      </div>
+      <div class="card">
+        <h3>Hires</h3>
+        <p>5</p>
+      </div>
+    </div>
+
+    <div class="charts">
+      <canvas id="funnelChart"></canvas>
+      <canvas id="conversionChart"></canvas>
+    </div>
+
+  </div>
+
+  <script>
+    const funnelData = {
+      labels: ['Applied', 'Screened', 'Interview', 'Offer', 'Hired'],
+      datasets: [{
+        label: 'Candidates',
+        data: [120, 70, 35, 10, 5]
+      }]
+    };
+
+    const conversionData = {
+      labels: ['Applied→Screened', 'Screened→Interview', 'Interview→Offer', 'Offer→Hired'],
+      datasets: [{
+        label: 'Conversion %',
+        data: [58, 50, 28, 50]
+      }]
+    };
+
+    new Chart(document.getElementById('funnelChart'), {
+      type: 'bar',
+      data: funnelData,
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Recruitment Funnel'
+          }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('conversionChart'), {
+      type: 'line',
+      data: conversionData,
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Conversion Rates (%)'
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
